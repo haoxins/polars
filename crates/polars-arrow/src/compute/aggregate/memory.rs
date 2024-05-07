@@ -62,6 +62,10 @@ pub fn estimated_bytes_size(array: &dyn Array) -> usize {
         }),
         Binary => dyn_binary!(array, BinaryArray<i32>, i32),
         FixedSizeBinary => {
+            if array.is_empty() {
+                println!("empty array");
+                return 0;
+            }
             let array = array
                 .as_any()
                 .downcast_ref::<FixedSizeBinaryArray>()
